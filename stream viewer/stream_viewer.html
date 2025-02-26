@@ -31,35 +31,58 @@
             Your browser does not support the video tag.
         </video>
     </div>
-    <div class="controls">
-        <button onclick="switchStream(0)">Camera 1</button>
-        <button onclick="switchStream(1)">Camera 2</button>
-        <button onclick="switchStream(2)">Camera 3</button>
-        <button onclick="switchStream(3)">Camera 4</button>
+    <div class="Menu">
+        <button onclick="CameraCount(0)">One Camera</button>
+        <button onclick="CameraCount(1)">Two Camera</button>
+        <button onclick="CameraCount(2)">Three Camera</button>
+        <button onclick="CameraCount(3)">Four Camera</button>
     </div>
-
+        <div class = "Stream-container"></div>
+     
     <script>
+         function CameraCount (count){
+            const conatiner= document.querySelector(".Stream-container");
+            container.innerHTML ="";
+            switch (count){
+                case 1:
+                addCamera (0);
+                break;
+                case 2:
+                addCamera (0);
+                addCmaera (1);
+                break;
+                case 3:
+                addCamera (0);
+                addCamera (1);
+                addCamera (2);
+                break;
+                case 4: 
+                addCamera(0);
+                addCamera(1);
+                addCamera(2);
+                addCamera(3);
+                break;
+                default:
+                    console.log("Invalid Selection");
+            }
+}
+function addCamera(index){
+
+
         const streams = [
             "http://192.168.0.100:8080/stream",
             "http://192.168.0.100:8081/stream",
             "http://192.168.0.100:8082/stream",
             "http://192.168.0.100:8083/stream"
         ];
-
-        let currentStreamIndex = 0;
-
-        function switchStream(index) {
-            const videoElement = document.getElementById("videoStream");
-            videoElement.src = streams[index];
-            videoElement.play();
-            currentStreamIndex = index;
-        }
-
-        // Auto-cycle every 5 seconds
-        setInterval(() => {
-            const nextStreamIndex = (currentStreamIndex + 1) % streams.length;
-            switchStream(nextStreamIndex);
-        }, 5000);
+        const conatiner = document.querySelector(".Stream_container");
+        const videoElement = document.createElement("video");
+        videoElement.src = streams[index];
+        videoElement.autoplay = true;
+        videoElement.controls= true;
+        videoElement.style.width = "48%";
+        conatiner.appendChild(videoElement);
+}
     </script>
 </body>
 </html>
